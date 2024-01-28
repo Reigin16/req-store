@@ -8,7 +8,7 @@ function Input(props) {
  let index = props.index
     let submitText = async(e) => {
       e.preventDefault()
-      var newData = {...props.data}
+      var newData = props.data
       console.log(props, maxTime)
       newData[index] = {...newData[index], maxTime: maxTime}
       console.log(props.data)
@@ -16,7 +16,7 @@ function Input(props) {
           let response = await fetch('https://8000-hieser21-reqstore-4fxk1tod0g7.ws-us107.gitpod.io/data', {
             headers: {'Content-Type': "application/json"},
             method: 'POST',
-            body: JSON.stringify({data: [data]})
+            body: JSON.stringify({data:data})
           });
           let result = await response.json();
           console.log(result);
@@ -25,7 +25,7 @@ function Input(props) {
     
     return (
       <form onSubmit={submitText}> 
-      <input onChange={(e) => {setMaxTime( e.target.value)}} value={maxTime} />
+      <input className='input input-bordered' onChange={(e) => {setMaxTime( e.target.value)}} value={maxTime} />
       </form>
     )
 }
@@ -60,9 +60,9 @@ function App() {
   //   postData();
   // }, [data]); // This will run every time `data` changes
   return (
-    <div className="App">
-    <h1>Students Table</h1>
-    <table>
+    <div className="container mx-auto">
+    <h1 className='text-center'>Groups Table</h1>
+    <table className='mx-auto table table-md'>
       <thead>
         <tr>
           <th>Group ID</th>
@@ -76,7 +76,7 @@ function App() {
         {data.length > 0 ? data.map((value, key) => {
           
           return (
-            <tr key={key}>
+            <tr key={key} className={(value.status == 'Banned' ? 'bg-red-800' : '')}>
               <td>{value?.id}</td>
               <td>{value?.Title}</td>
               <td>{value?.status}</td>

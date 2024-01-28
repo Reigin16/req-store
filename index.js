@@ -24,8 +24,7 @@ app.get('/', (req, res) => {
 })
 app.post('/data', async(req, res) => {
 
-    let data = req.body
-    console.log(data)
+    let data = req.body.data
     res.header('Access-Control-Allow-Origin', '*')
     fs.writeFileSync('data.json', JSON.stringify(data))
     return res.status(200).json({success: true, message: "Data changed"})
